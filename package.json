@@ -1,0 +1,23 @@
+{
+  "name": "photo-contest",
+  "version": "1.0.0",
+  "description": "A Simple Photo contest application",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narendrakurapati/photo-contest.git"
+  },
+  "keywords": [
+    "Photo",
+    "Contest"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/narendrakurapati/photo-contest/issues"
+  },
+  "homepage": "https://github.com/narendrakurapati/photo-contest#readme"
+}
