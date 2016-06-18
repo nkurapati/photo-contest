@@ -11,13 +11,24 @@
     "url": "git+https://github.com/narendrakurapati/photo-contest.git"
   },
   "keywords": [
-    "Photo",
-    "Contest"
+    "Photo Contest"
   ],
-  "author": "",
+  "author": "Narendra Kurapati",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/narendrakurapati/photo-contest/issues"
   },
-  "homepage": "https://github.com/narendrakurapati/photo-contest#readme"
+  "homepage": "https://github.com/narendrakurapati/photo-contest#readme",
+  "devDependencies": {
+    "angular": "^1.5.7",
+    "angular-ui-router": "^0.3.1",
+    "body-parser": "^1.15.1",
+    "browser-sync": "^2.13.0",
+    "browserify": "^13.0.1",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-live-server": "0.0.30",
+    "mongoose": "^4.5.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
 }
