@@ -1,0 +1,110 @@
+body {
+	margin: 0px;
+	font-size: 14px;
+	width: 100%;
+}
+
+button {
+	height: 50px;
+	background-color: #991a1f;
+	color: #fff;
+	padding:0px 30px;
+	border: none;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+header {
+    height: 60px;
+    background-color: #cfcfcf;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+input, textarea {
+	border: 1px solid #cfcfcf;
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+input {
+	height: 40px;
+}
+
+textarea {
+	min-height: 250px;
+}
+
+footer {
+	height: 40px;
+    background-color: #991a1f;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 40px;
+    position: fixed;
+    bottom: 0px;
+}
+
+
+.content_view {
+	padding: 20px;
+	max-width: 960px;
+	box-sizing: border-box;
+	margin:0px auto;
+}
+
+.submission_form {
+	/*display: flex;
+	flex-direction: row;*/
+}
+
+.main_view {
+	margin-bottom: 40px;
+}
+
+.landing_page_mainView {
+	text-align: center;
+	padding-top: 20px;
+}
+
+.drop_area {
+	background: #cfcfcf;
+    /* flex: auto; */
+    margin-right: 20px;
+    width: auto;
+    overflow: hidden;
+    height: 300px;
+    position: relative;
+}
+
+.form_fields {
+    width: 350px;
+    margin-bottom: 0px;
+    float: right;
+    margin-left: 20px;
+}
+
+.form_fields > *:last-child{
+	margin:0px;
+}
+
+.sbmt_photo_btn {
+	width: 100%;
+}
+
+#file_selection {
+	opacity: 0;
+}
+
+.file_selection_label {
+	height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    top:0px;
+}
