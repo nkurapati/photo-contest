@@ -51,6 +51,10 @@ gulp.task("serve", ["bundle","live-server"], function() {
 
 gulp.task("runServer", shell.task(["node server/rest.js"]));
 
+gulp.task("launch", ["runServer","serve"], function() {
+	console.log("Application is launched...");
+});
+
 gulp.task("watch", ["bundle"], browserSync.reload);
 gulp.watch("./app/**/*.js", ["watch"]);
 
