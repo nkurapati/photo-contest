@@ -1,29 +1,39 @@
-
-module.exports = function (app) {
-	
-    var SubmissionModel = require("./../models/submission.js");
-    
-    app.route("/api/submissions")
-	.get(function(req, res) {
-		console.log('Accessing submissions');
-        SubmissionModel.find(function(err, doc) {
-            var submissions = doc;
-            res.send(submissions);
-        });
-    })
-    .post(function(req, res) {
-		/*var item = {
-			id: "xyz",
-			name: "Narendra",
-			title: "Photo Contest",
-			description: "Testing",
-			image: "img",
-			email: "narendra@divami.com"
-		}*/
-        
-        var submission = new SubmissionModel(req.body);
-        submission.save(function(error, data) {
-            res.status(300).send();
-        });
-    });
+var SubmissionModel = require("./../models/submission.js");
+function processData(req, res) {
+	var data = req.body;
+	if(Object.keys(data).length) {
+		addSubmission(req, res, data)
+	} else {
+		getSubmissions(req, res);
+	}
 }
+
+function getSubmissions(req, res) {
+	SubmissionModel.find(function(err, doc) {
+		res.send(doc);
+	});
+}
+
+function addSubmission(req, res, data) {
+	var submission = new SubmissionModel(data);
+	submission.save(function(error, data) {
+		res.status(300).send();
+	});
+}
+
+
+function updateSubmission(req, res, data) {
+	var submission = new SubmissionModel(data);
+	submission.save(function(error, data) {
+		res.status(300).send();
+	});
+}
+
+
+function addRoutes(app) {
+	console.log('Routes added');
+	app.route("/api/submissions")
+	.get(processData)
+    .post(processData);
+}
+module.exports = addRoutes;

@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 
+var Schema = mongoose.Schema;
+
 var SubmissionSchema = {
-	id: String,
     name: String,
 	title: String,
 	description: String,
@@ -9,6 +10,6 @@ var SubmissionSchema = {
 	email: String
 };
 
-var SubmissionModel = mongoose.model("Submission", SubmissionSchema, "submissions");
+var SubmissionModel = mongoose.model("Submission", SubmissionSchema);
 
 module.exports = SubmissionModel;

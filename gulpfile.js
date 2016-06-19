@@ -3,6 +3,7 @@ var LiveServer = require("gulp-live-server");
 var browserSync = require("browser-sync");
 var browserify = require("browserify");
 var source = require("vinyl-source-stream");
+var shell = require("gulp-shell");
 
 gulp.task("live-server", function() {
 	browserSync.init({
@@ -47,6 +48,8 @@ gulp.task("bundle", ["copy"], function() {
 gulp.task("serve", ["bundle","live-server"], function() {
 	console.log("Server is running...");
 });
+
+gulp.task("runServer", shell.task(["node server/rest.js"]));
 
 gulp.task("watch", ["bundle"], browserSync.reload);
 gulp.watch("./app/**/*.js", ["watch"]);
