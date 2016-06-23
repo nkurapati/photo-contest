@@ -1,4 +1,4 @@
-function rootService($http, apiService) {
+function restService($http, apiService) {
 	
 	var rest = {};
 	
@@ -14,19 +14,23 @@ function rootService($http, apiService) {
 		return $http.get(url);
 	}
 	
+	rest.getHtml = function(url) {
+		return $http.get(url);
+	}
+	
 	
 	rest.upload = function(api, params) {
 		var url = apiService.getUrl(api);
 		
 		var optionalData = {
-		  transformRequest: angular.identity,
-		  headers: {'Content-Type': undefined} //Content type will decide at runtime as multipart/form-data
+		  //transformRequest: angular.identity,
+		  //headers: {'Content-Type': undefined} //Content type will decide at runtime as multipart/form-data
 		}
 
-		return $http.post(url, postParams, optionalData);
+		return $http.post(url, params, optionalData);
 	}
 
 	return rest;
 }
 
-module.exports = rootService;
+module.exports = restService;

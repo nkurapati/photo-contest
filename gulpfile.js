@@ -47,16 +47,16 @@ gulp.task("bundle", ["copy"], function() {
 
 gulp.task("serve", ["bundle","live-server"], function() {
 	console.log("Server is running...");
+	gulp.task("watch", ["bundle"], browserSync.reload);
+	gulp.watch("./app/**/*.js", ["watch"]);
+
+	gulp.watch("./app/**/*.html", ["copyHtml"]);
+	gulp.watch("./app/**/*.css", ["copyCSS"]);
 });
 
-gulp.task("runServer", shell.task(["node server/rest.js"]));
+gulp.task("startNodeServer", shell.task(["node server/rest.js"]));
+gulp.task("startMongo", shell.task(["C:/Mongo/bin/mongod"]));
 
-gulp.task("launch", ["runServer","serve"], function() {
+gulp.task("launch", ["startMongo", "startNodeServer", "serve"], function() {
 	console.log("Application is launched...");
 });
-
-gulp.task("watch", ["bundle"], browserSync.reload);
-gulp.watch("./app/**/*.js", ["watch"]);
-
-gulp.watch("./app/**/*.html", ["copyHtml"]);
-gulp.watch("./app/**/*.css", ["copyCSS"]);

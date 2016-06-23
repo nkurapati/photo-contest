@@ -108,3 +108,8 @@ footer {
     text-align: center;
     top:0px;
 }
+
+.popup {
+	position: absolute;
+	z-index: 10;
+}
