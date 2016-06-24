@@ -22,7 +22,7 @@ function addSubmission(req, res, data) {
 	var submission = new SubmissionModel(data);
 	submission.save(function(error, data) {
 		console.log('Success: AddSubmission');
-		res.status(300).send();
+		res.status(200).send();
 	});
 }
 
@@ -32,7 +32,7 @@ function updateSubmission(req, res, data) {
 	var submission = new SubmissionModel(data);
 	submission.save(function(error, data) {
 		console.log('Success: UpdateSubmission');
-		res.status(300).send();
+		res.status(200).send();
 	});
 }
 

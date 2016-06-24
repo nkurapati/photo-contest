@@ -1,5 +1,20 @@
 function uploadController($scope, restService, popupService) {
 	
+	$scope.onFileChange;
+	$scope.imgUrl;
+
+	$scope.onInputChange = function(elem) {
+		$scope.$apply(function(scope) {
+	         var photofile = elem.files[0];
+	         $scope.imgUrl = window.URL.createObjectURL(photofile);
+	         /*var reader = new FileReader();
+	         reader.onload = function(e) {
+	            // handle onload
+	         };
+	         reader.readAsDataURL(photofile);*/
+	     });
+	}
+	
 	$scope.onSubmission = function() {
 		var obj = {
 			name: 'Narendra',
@@ -9,7 +24,7 @@ function uploadController($scope, restService, popupService) {
 			email: "narendra@divami.com"
 		};
 		
-		restService.upload('upload', obj).then(function() {alert('success')});
+		restService.upload('upload', obj).then(onSuccess);
 	}
 	
 	var onSuccess = function(data) {
