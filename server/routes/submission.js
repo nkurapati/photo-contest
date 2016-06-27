@@ -1,24 +1,50 @@
 var SubmissionModel = require("./../models/submission.js");
-function processData(req, res) {
-	console.log('processData');
-	var data = req.body;
-	if(Object.keys(data).length) {
-		addSubmission(req, res, data)
-	} else {
-		getSubmissions(req, res);
-	}
+var q = require('q');
+var upload = require('./../upload.js');
+
+function getSubmissions(data) {
+	var deferred = q.defer();
+	data = data || {};
+	SubmissionModel.find(data, function(err, doc) {
+		deferred.resolve(doc);
+	});
+	return deferred.promise;
 }
 
-function getSubmissions(req, res) {
-	console.log('GetSubmission');
-	SubmissionModel.find(function(err, doc) {
-		console.log('Success: GetSubmission');
-		res.send(doc);
+function getList(req, res) {
+	var data = req.body;
+	console.log(req.method);
+	console.log('Get Submissions');
+	getSubmissions(data).then(function(data) {
+		console.log('Success: Get Submissions');
+		res.status(200).send(data);
+	});
+}
+
+function processData(req, res) {
+	console.log('processData');
+	upload(req, res, function(err) {
+		if(err) {
+			console.log(err);
+			return res.end("Error uploading file.");
+		}
+		var data = req.body;
+		if(data["_id"]) {
+			updateSubmission(req, res, data);
+		} else {
+			addSubmission(req, res, data);
+		}
 	});
 }
 
 function addSubmission(req, res, data) {
 	console.log('AddSubmission');
+	var file = req.file;
+	if(file) {
+		data.filename = file.filename;
+		data.mimetype = file.mimetype;
+		data.size = file.size;
+	}
 	var submission = new SubmissionModel(data);
 	submission.save(function(error, data) {
 		console.log('Success: AddSubmission');
@@ -29,8 +55,14 @@ function addSubmission(req, res, data) {
 
 function updateSubmission(req, res, data) {
 	console.log('UpdateSubmission');
-	var submission = new SubmissionModel(data);
-	submission.save(function(error, data) {
+	//var submission = new SubmissionModel();
+	var query = data["_id"];
+	var options = { multi: true };
+	SubmissionModel.update(query, data, options, function(err, doc) {
+		if (err) {
+			console.log("Update failed..");
+			res.end("Error updating data.");
+		}
 		console.log('Success: UpdateSubmission');
 		res.status(200).send();
 	});
@@ -38,9 +70,14 @@ function updateSubmission(req, res, data) {
 
 
 function addRoutes(app) {
-	console.log('Routes added');
+	console.log('Submission routes added');
+	
 	app.route("/api/submissions")
-	.get(processData)
-    .post(processData);
+		.get(getList)
+    	.post(getList);
+	
+	app.route("/api/upload")
+    	.post(processData);
 }
+
 module.exports = addRoutes;

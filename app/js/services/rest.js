@@ -23,8 +23,8 @@ function restService($http, apiService) {
 		var url = apiService.getUrl(api);
 		
 		var optionalData = {
-		  //transformRequest: angular.identity,
-		  //headers: {'Content-Type': undefined} //Content type will decide at runtime as multipart/form-data
+		  transformRequest: angular.identity,
+		  headers: {'Content-Type': undefined} //Content type will decide at runtime as multipart/form-data
 		}
 
 		return $http.post(url, params, optionalData);

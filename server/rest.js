@@ -20,6 +20,6 @@ app.use(function(req, res, next) {
 });
 
 app.use(parser.json());
-app.use(parser.urlencoded({extended: false}));
+app.use(parser.urlencoded({extended: true}));
 
 require("./routes/submission.js")(app);
