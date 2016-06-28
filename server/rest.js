@@ -22,4 +22,5 @@ app.use(function(req, res, next) {
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
+//Loading routes
 require("./routes/submission.js")(app);
