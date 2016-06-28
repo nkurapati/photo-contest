@@ -1,5 +1,7 @@
 var angular  = require("angular");
+require("./vendor/angular-google-plus.js");
 var app = angular.module('PhotoContest', [
+	'googleplus',
 	'ui.router'
 ]);
 
@@ -20,6 +22,7 @@ app.controller('popupController', require('./controllers/popup.js'));
 
 //Load Services and Factories
 app.factory('apiService', require('./services/api.js'));
+app.factory('authService', require('./services/auth.js'));
 app.factory('restService', require('./services/rest.js'));
 app.factory('cookieService', require('./services/cookie.js'));
 app.factory('popupService', require('./services/popup.js'));

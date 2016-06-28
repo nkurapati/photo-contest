@@ -1,10 +1,12 @@
-function contestController($scope, $state) {
+function contestController($scope, authService) {
 	$scope.showUploadForm = function() {
-		if ($scope.userData.isLoggedIn) {
-			$scope.gotoUploadPhoto();
-		} else {
-			$scope.gotoLogin();
-		}
+		authService.isLoggedIn().then(function(isLoggedIn) {
+			if (isLoggedIn) {
+				$scope.gotoUploadPhoto();
+			} else {
+				$scope.gotoLogin();
+			}
+		});
 	}
 }
 

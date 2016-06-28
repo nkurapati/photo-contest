@@ -1,6 +1,14 @@
 require('angular-ui-router');
 
-function config($stateProvider, $urlRouterProvider) {
+var googleClientId = "768640013294-s68jbd29036350je83lv25tc07u9ltbg.apps.googleusercontent.com";
+var googleApiKey = "AIzaSyAQ9dvVSiwqtdoEfRcXDYplw39ndK7_u1g";
+
+function config($stateProvider, $urlRouterProvider, GooglePlusProvider) {
+	
+	GooglePlusProvider.init({
+		clientId: googleClientId,
+		apiKey: googleApiKey
+	});
 	
 	//Default url
 	$urlRouterProvider.otherwise("/contest");

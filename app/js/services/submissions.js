@@ -8,7 +8,7 @@ function submissionsService($q, $timeout, restService) {
 		if (submissions.length) {
 			$timeout(function() {
 				promise.resolve(submissions);
-			})
+			});
 			return promise;
 		} else {
 			return restService.get("getSubmissions");

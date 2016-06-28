@@ -1,5 +1,10 @@
-function uploadController($scope, restService, popupService) {
+function uploadController($scope, restService, popupService, authService) {
 	
+	var userData = authService.getUserData();
+	if(!userData) {
+		$scope.gotoLogin();
+		return;
+	}
 	$scope.onFileChange;
 	$scope.imgUrl;
 	
@@ -29,8 +34,8 @@ function uploadController($scope, restService, popupService) {
 	
 	$scope.onSubmission = function() {
 		var data = new FormData();
-		data.append('email', "narendra@divami.com");
-		data.append('name', "Narendra Kurapati");
+		data.append('email', userData.email);
+		data.append('name', userData.name);
 		var photo = $scope.photos[0];
 		data.append('title', photo.title);
 		data.append('description', photo.description);
