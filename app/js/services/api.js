@@ -1,6 +1,6 @@
 function apiService() {
 	//Backend server url
-	var serverBasePath = "http://localhost:8081/api/";
+	var serverBasePath = "http://contest.divami.com:8081/api/";
 
 	//Server paths for api names
 	var serverApiPaths = {
