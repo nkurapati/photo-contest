@@ -1,7 +1,7 @@
 require('angular-ui-router');
 
-var googleClientId = "768640013294-s68jbd29036350je83lv25tc07u9ltbg.apps.googleusercontent.com";
-var googleApiKey = "AIzaSyAQ9dvVSiwqtdoEfRcXDYplw39ndK7_u1g";
+var googleClientId = "40145754411-2po7c57cmg5q8chjh2mdft6q39tnfu9k.apps.googleusercontent.com";
+var googleApiKey = "AIzaSyBI3SCag1Cu1EVxsOc4gM0dkptep6-CSS0";
 
 function config($stateProvider, $urlRouterProvider, GooglePlusProvider) {
 	
