@@ -2,6 +2,7 @@ body {
 	margin: 0px;
 	font-size: 14px;
 	width: 100%;
+	font-family: arial, sans-serif;
 }
 
 button {
@@ -16,10 +17,11 @@ button {
 
 header {
     height: 60px;
-    background-color: #cfcfcf;
+    background-color: #991a1f;
     width: 100%;
-    padding: 20px;
+    padding: 20px 40px;
     box-sizing: border-box;
+    color: #fff;
 }
 
 input, textarea {
@@ -28,6 +30,7 @@ input, textarea {
 	width: 100%;
 	margin-bottom: 10px;
 	padding: 10px;
+	background: none;
 }
 
 input {
@@ -47,12 +50,13 @@ footer {
     line-height: 40px;
     position: fixed;
     bottom: 0px;
+    display: none;
 }
 
 
 .content_view {
-	padding: 20px;
-	max-width: 960px;
+	padding: 40px;
+	/*max-width: 960px;*/
 	box-sizing: border-box;
 	margin:0px auto;
 }
@@ -60,6 +64,10 @@ footer {
 .submission_form {
 	/*display: flex;
 	flex-direction: row;*/
+}
+
+.clear {
+	clear: both;
 }
 
 .main_view {
@@ -112,4 +120,71 @@ footer {
 .popup {
 	position: absolute;
 	z-index: 10;
+}
+
+.photo_details_section {
+	height: 100px;
+	background:#cc6666;
+	color: #fff;
+	border-radius: 0px 0px 5px 5px;
+	padding: 10px;
+	box-sizing:border-box;
+}
+
+.no_details {
+	text-align: center;
+	line-height: 100px;
+	/*color: blue;*/
+	font-size: 16px;
+	font-family: sans-serif;
+	
+}
+
+.no_details a:hover {
+	text-decoration: underline;
+}
+
+.photos {
+	/*height: 300px;*/
+	width: 300px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	position: relative;
+	/*-webkit-transition: height 15s width15s;
+    //transition: height 15s width15s;*/
+}
+
+.photo_holder {
+	height: 300px;
+	width: 300px;
+	border: 2px solid #cc6666;
+	border-bottom: none;
+	box-sizing:border-box;
+}
+
+.title_description_overlay {
+	position: absolute;
+    z-index: 14;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #cc6666;
+    /*display: none;*/
+}
+
+.title {
+	font-size: 16px;
+}
+
+.description {
+	font-size: 12px;
+}
+
+.upload_photos_btn {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
 }
