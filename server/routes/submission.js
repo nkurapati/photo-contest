@@ -45,10 +45,11 @@ function addSubmission(req, res, data) {
 		data.mimetype = file.mimetype;
 		data.size = file.size;
 	}
+	console.log(data);
 	var submission = new SubmissionModel(data);
-	submission.save(function(error, data) {
+	submission.save(function(error, newData) {
 		console.log('Success: AddSubmission');
-		res.status(200).send();
+		res.status(200).send(newData);
 	});
 }
 

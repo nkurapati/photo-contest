@@ -11,7 +11,8 @@ var SubmissionSchema = new Schema({
 	mimetype: String,
 	size: Number
 },{
-	timestamps: true
+	timestamps: true,
+	strict: false
 });
 
 //createdDate: {type: Date, default:Date.now},
