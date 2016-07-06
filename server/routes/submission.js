@@ -69,6 +69,33 @@ function updateSubmission(req, res, data) {
 	});
 }
 
+function deleteSubmissions(data) {
+	var deferred = q.defer();
+	data = data || {};
+	SubmissionModel.remove(data, function(err, doc) {
+		deferred.resolve(doc);
+	});
+	return deferred.promise;
+}
+
+function deleteSubmission(req, res) {
+	console.log('Remove Submissions');
+	var data = req.body || {};
+	if(data['_id'] || data.email) {
+		console.log(data);
+		deleteSubmissions(data).then(function(doc) {
+			var payload = {};
+			payload.success = true;
+			payload.count = doc.result.n;
+			
+			console.log('Success: Remove Submissions');
+			console.log(payload);
+			res.status(200).send(payload);
+		});
+	} else {
+		res.end("No Data is passed. Either _id or email is mandatory.");
+	}
+}
 
 function addRoutes(app) {
 	console.log('Submission routes added');
@@ -79,6 +106,9 @@ function addRoutes(app) {
 	
 	app.route("/api/upload")
     	.post(processData);
+	
+	app.route("/api/delete")
+    	.post(deleteSubmission);
 }
 
 module.exports = addRoutes;
