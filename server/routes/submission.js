@@ -11,14 +11,38 @@ function getSubmissions(data) {
 	return deferred.promise;
 }
 
+function getSubmissionsGroupBy(data) {
+	var deferred = q.defer();
+	var groupBy = '$' + ((data && data.groupBy) || 'email');
+	SubmissionModel.aggregate([{ 
+		$group : { 
+			_id : groupBy,
+			submissions: { 
+				$push: "$$ROOT" 
+			} 
+		} 
+	}], function(err, doc) {
+		deferred.resolve(doc);
+	});
+	return deferred.promise;
+}
+
 function getList(req, res) {
 	var data = req.body;
 	console.log(req.method);
-	console.log('Get Submissions');
-	getSubmissions(data).then(function(data) {
-		console.log('Success: Get Submissions');
-		res.status(200).send(data);
-	});
+	if(data.hasOwnProperty('groupBy')){
+		console.log('Get Submissions by GroupBy');
+		getSubmissionsGroupBy(data).then(function(data) {
+			console.log('Success: Get Submissions by GroupBy');
+			res.status(200).send(data);
+		});
+	} else {
+		console.log('Get Submissions');
+		getSubmissions(data).then(function(data) {
+			console.log('Success: Get Submissions');
+			res.status(200).send(data);
+		});
+	}
 }
 
 function processData(req, res) {
