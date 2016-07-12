@@ -1,33 +1,3 @@
-<!-- uploading photos form -->
-<!--<div class="submission_form" ng-repeat="photo in photos track by $index">
-	<form class="form_fields">
-		<input placeholder="Please give a tilte for the photo." class="title_fld" type="text" ng-model="photo.title"/>
-		<textarea placeholder="Enter the description for the photo." class="desc_area" ng-model="photo.description"></textarea> 
-	</form>
-	<div class="drop_area">
-		<input type="file" id="file_selection" data-index="{{$index}}" accept="image/*" onChange="angular.element(this).scope().onInputChange(this);" ng-model="photo.file"/>
-		<label class="file_selection_label" for="file_selection">Please select a file or drop a files to upload</label>
-		<img ng-src="{{imgUrl}}" style="position:absolute; top:0px;"/>
-	</div>
-</div>
-<button class="sbmt_photo_btn" ng-click="addAnotherFile()">Add Another Photo</button>
-<button class="sbmt_photo_btn" ng-click="onSubmission()">Submit a Photo</button> -->
-<!-- end of uploading photos form -->
-
-
-<!--<div class="dropArea">
-	<div class="drop_msg"> 
-		Please drag and drop the photos that you want to upload <br/> OR <br/>
-		<button class="sbmt_photo_btn">Please select the photos</button>
-	</div>
-	<div class="selected_photos_list">
-		<div ng-repeat="slctdPhotos in slctdPhotos">
-			<div class="desc_fld"></div>
-			<div ng-style="background-image: url(slctdPhotos.url);"></div>
-			<div class="title"></div>
-		</div>
-	</div>
-</div>-->
 
 <div class="addPhotosArea" style="width:100%;">
 	<div style="text-align:center;margin-bottom:20px;cursor:pointer" ng-show="photos.length"  ng-click="selectPhotosFromLocal();">
@@ -49,6 +19,10 @@
 		<!-- place where selected photos will be shown -->
 		<div class="selected_photos" style="position:absolute; z-index:11;width:100%" ng-if="photos.length">
 			<div class="photos" style="float:left; cursor:pointer" ng-repeat="photo in photos">
+				<div class="delete_photo_option" ng-click="removeThisPhoto($index);">
+					<div class="rotate45"></div>
+					<div class="rotate135"></div>
+				</div>
 				<div class="title_description_overlay" ng-show="photo.showTitleOverlay">
 					<input type="text" ng-model="photo.title" placeholder="Please enter the title for the photo"/>
 					<textarea ng-model="photo.description" placeholder="Please enter the description of the photo"></textarea>

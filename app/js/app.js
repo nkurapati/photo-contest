@@ -1,8 +1,10 @@
 var angular  = require("angular");
+var angularBootstrap = require("angular-ui-bootstrap");
 require("./vendor/angular-google-plus.js");
 var app = angular.module('PhotoContest', [
 	'googleplus',
-	'ui.router'
+	'ui.router',
+	'ui.bootstrap'
 ]);
 
 
@@ -19,6 +21,7 @@ app.controller('uploadController', require('./controllers/upload.js'));
 app.controller('submissionsController', require('./controllers/submissions.js'));
 app.controller('submissionController', require('./controllers/submission.js'));
 app.controller('popupController', require('./controllers/popup.js'));
+app.controller('photoLargeController', require('./controllers/photoLarge.js'));
 
 //Load Services and Factories
 app.factory('apiService', require('./services/api.js'));

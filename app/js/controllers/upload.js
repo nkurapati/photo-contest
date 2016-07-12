@@ -10,6 +10,24 @@ function uploadController($scope, restService, popupService, authService) {
 	$scope.prevId = null;
 	
 	$scope.photos = [];
+
+
+
+	$scope.getUserUploadedPhotos = function() {
+		var data = {"email": userData.email};
+		restService.post('getSubmissions', data).then(onUserDetailsSuccess);
+	};
+
+	var onUserDetailsSuccess = function(data) {
+		for (var i = 0, len = data.data.length; i < len; i++) {
+			data.data[i].imgUrl = "http://contest.divami.com/uploads/" + data.data[i].filename;
+			$scope.photos.push(data.data[i]);
+		}
+	};
+
+	$scope.getUserUploadedPhotos();
+
+
 	
 	$scope.addAnotherFile = function() {
 		$scope.photos.push({});
@@ -88,26 +106,52 @@ function uploadController($scope, restService, popupService, authService) {
 	}
 
 	/**
+	 * this function removes the photo from the list
+	*/
+	$scope.removeThisPhoto = function(index) {
+		$scope.photos.splice(index, 1);
+	} 
+
+	/**
 	 * this function uploads the photos to the server
 	*/ 
 	$scope.uploadPhotosToServer = function() {
-		for (var i = 0, len = $scope.photos.length; i < len; i++) {
-			var formData = new FormData();
-			var photo = $scope.photos[i];
+		var isValid = $scope.validateInputFields();
 
-			formData.append('email', userData.email);
-			formData.append('name', userData.name);
-			formData.append('title', photo.title);
-			formData.append('description', photo.description);
-			formData.append('file', photo.file);
-			formData.append('uniqueId', photo.uniqueId);
-			//formData.append('uniqueId', p);
+		if (isValid) {
+			for (var i = 0, len = $scope.photos.length; i < len; i++) {
+				var formData = new FormData();
+				var photo = $scope.photos[i];
 
-			restService.upload('upload', formData).then(onSuccess);
+				formData.append('email', userData.email);
+				formData.append('name', userData.name);
+				formData.append('title', photo.title);
+				formData.append('description', photo.description);
+				formData.append('file', photo.file);
+				formData.append('uniqueId', photo.uniqueId);
+
+				restService.upload('upload', formData).then(onSuccess);
+			}
+		} else {
+			alert ("Please give title and description for the photos that are marked in red");
 		}
 	}
+
+	/**
+	 * This function validates whether the description and title are applied for all the selected photos
+	*/
+	$scope.validateInputFields = function() {
+		for (var i = 0 , len = $scope.photos.length; i < len; i++) {
+			var photo = $scope.photos[i];
+
+			if (photo.title == "" || photo.description == "") {
+				return false;
+			} 
+		}
+		return true;
+	}
 	
-	$scope.onSubmission = function() {
+	/*$scope.onSubmission = function() {
 		var data = new FormData();
 		data.append('email', userData.email);
 		data.append('name', userData.name);
@@ -116,7 +160,7 @@ function uploadController($scope, restService, popupService, authService) {
 		data.append('description', photo.description);
 		data.append('file', photo.file);
 		debugger;
-        /*var length = $scope.photos.length;
+        var length = $scope.photos.length;
         for(var i=0; i<length; i++){
             var photo = $scope.photos[i];
             if(photo){
@@ -125,14 +169,14 @@ function uploadController($scope, restService, popupService, authService) {
 				data.append('files[' + i + '][description]', photo.description);
 				data.append('files[' + i + '][file]', photo.file);
             }
-        }*/
+        }
 		
 		restService.upload('upload', data).then(onSuccess);
-	}
+	}*/
 	
 	var onSuccess = function(data) {
-		var callback = $scope.gotoSubmissions;
-		popupService.uploadSuccessPopup($scope, callback, callback);
+		/*var callback = $scope.gotoSubmissions;
+		popupService.uploadSuccessPopup($scope, callback, callback);*/
 	}
 }
 

@@ -3,6 +3,7 @@ body {
 	font-size: 14px;
 	width: 100%;
 	font-family: arial, sans-serif;
+	letter-spacing: 1px;
 }
 
 button {
@@ -133,9 +134,9 @@ footer {
 
 .no_details {
 	text-align: center;
-	line-height: 100px;
+	line-height: 85px;
 	/*color: blue;*/
-	font-size: 16px;
+	/*font-size: 16px;*/
 	font-family: sans-serif;
 	
 }
@@ -146,7 +147,7 @@ footer {
 
 .photos {
 	/*height: 300px;*/
-	width: 300px;
+	/*width: 300px;*/
 	margin-right: 10px;
 	margin-bottom: 10px;
 	position: relative;
@@ -160,6 +161,17 @@ footer {
 	border: 2px solid #cc6666;
 	border-bottom: none;
 	box-sizing:border-box;
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center
+}
+
+.photo_holder_modal {
+	height: 500px;
+	width: 100%;
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .title_description_overlay {
@@ -187,4 +199,38 @@ footer {
 	bottom: 0px;
 	left: 0px;
 	width: 100%;
+}
+
+.delete_photo_option {
+	background-color: #cc6666;
+	height: 30px;
+	width: 30px;
+	border-radius: 30px;
+	position: absolute;
+    right: -13px;
+    top: -17px;
+	display: none;
+}
+
+.photos:hover .delete_photo_option {
+	display: block;
+}
+
+.rotate45, .rotate135 {
+	/*height: 20px;*/
+}
+
+.rotate45 {
+	border-top: 2px solid #fff;
+	transform: rotate(45deg);
+	margin-top: 12px;
+}
+
+.rotate135 {
+	border-top: 2px solid #fff;
+	transform: rotate(-45deg);
+}
+
+.carousel-indicators {
+	display: none !important;
 }

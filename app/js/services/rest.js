@@ -5,7 +5,7 @@ function restService($http, apiService) {
 	
 	rest.post = function(api, params) {
 		var url = apiService.getUrl(api);
-		return $http.post(url, postParams);
+		return $http.post(url, params);
 	}
 	
 	

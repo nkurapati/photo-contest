@@ -12,7 +12,7 @@ function rootController($scope, $state, $window) {
 		$state.transitionTo('root.uploadPhoto', data);
 	}
 	
-	$scope.gotoSubmissions = function(data) {
+	$scope.showAllUploadedPhotos = function(data) {
 		$state.transitionTo('root.submissions', data);
 	}
 	

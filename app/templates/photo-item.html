@@ -1,0 +1,17 @@
+<!-- start of the photo frame content -->
+<div>
+	<div class="imageHolder">
+		<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+		      <uib-slide ng-repeat="photo in photos" index="$index">
+		        <div class="photo_holder_modal" style="background-image:url('{{photo.imgUrl}}');"></div>
+				<div class="photo_details_section">
+					<div class="title_description">
+						<label class="title">{{photo.title}}</label>
+						<p class="description">{{photo.description}}</p>
+					</div>
+				</div>
+		      </uib-slide>
+	    </uib-carousel>
+	</div>
+</div>
+<!-- end of the photo frame content -->

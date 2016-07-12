@@ -1,14 +1,13 @@
-<!-- uploading photos form -->
-<div class="submission_form" ng-repeat="submission in submissions track by $index" ng-click="openSubmission(submission['_id'])">
-	<form class="form_fields">
-		<input placeholder="Please give a tilte for the photo." class="title_fld" type="text" />
-		<textarea placeholder="Enter the description for the photo." class="desc_area"></textarea> 
-	</form>
-	<div class="drop_area">
-		<input type="file" id="file_selection" accept="image/*" onChange="angular.element(this).scope().onInputChange(this);"/>
-		<label class="file_selection_label" for="file_selection">Please select a file or drop a files to upload</label>
-		<img ng-src="{{imgUrl}}" style="position:absolute; top:0px;"/>
+<div class="photos" style="float:left; cursor:pointer" ng-repeat="photo in photos" ng-click="open('lg', $index);">
+	<!--<img ng-src='{{photo.imgUrl}}' /> -->
+	<div class="photo_holder" style="background-image:url('{{photo.imgUrl}}');"></div>
+	<div class="photo_details_section">
+		<div class="title_description">
+			<label class="title">{{photo.title}}</label>
+			<p class="description">{{photo.description}}</p>
+		</div>
 	</div>
+	<!--<button ng-click="addDetailsAboutPhoto();">Add Caption and Description</button>
+	<div class="title">Add a title</div>
+	<div class="description">Please Add description for the photo</div>-->
 </div>
-<button class="sbmt_photo_btn">Submit a Photo</button>
-<!-- end of uploading photos form -->

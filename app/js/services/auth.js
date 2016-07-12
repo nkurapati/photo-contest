@@ -21,6 +21,11 @@ function authService($q, $timeout, GooglePlus) {
 		return deferred.promise;
 	}
 	
+	authService.getUserEmail = function() {
+		return userData.email;
+	}
+
+
 	authService.getUserData = function() {
 		return userData;
 	}
@@ -34,7 +39,7 @@ function authService($q, $timeout, GooglePlus) {
 		} else {
 			authService.login().then(function (data) {
 				if(data && !data.error) {
-					deferred.resolve(true);
+					deferred.resolve(true);	
 				} else {
 					deferred.resolve(false);
 				}
