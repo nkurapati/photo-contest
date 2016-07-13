@@ -1,9 +1,6 @@
 var express = require("express");
 var parser = require("body-parser");
 
-require("./database.js");
-
-
 var app = new express();
 
 app.get("/", function(req, res) {
@@ -23,4 +20,5 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
 //Loading routes
+require("./database.js")(app);
 require("./routes/submission.js")(app);
