@@ -1,13 +1,15 @@
-<div class="photos" style="float:left; cursor:pointer" ng-repeat="photo in photos" ng-click="open('lg', $index);">
-	<!--<img ng-src='{{photo.imgUrl}}' /> -->
-	<div class="photo_holder" style="background-image:url('{{photo.imgUrl}}');"></div>
-	<div class="photo_details_section">
-		<div class="title_description">
-			<label class="title">{{photo.title}}</label>
-			<p class="description">{{photo.description}}</p>
+<div>
+	<div class="photos" style="float:left; cursor:pointer" ng-repeat="user in submittedUsers" ng-click="open('lg', $index);">
+		<!--<img ng-src='{{photo.imgUrl}}' /> -->
+		<div class="photo_holder admin_main_pg_photo_holder" style="background-image:url('{{user.data.imgUrl}}');"></div>
+		<div class="photo_details_section photo_details_section_admin">
+			<div class="uploaded_user_details">
+				<label class="title">User_{{$index}}</label>
+				<p class="photo_count" ng-if="user.length > 1" style="color:#fff;"> &#x2795;{{user.length - 1}}&nbsp;photo(s)</p>
+			</div>
 		</div>
+		<!--<button ng-click="addDetailsAboutPhoto();">Add Caption and Description</button>
+		<div class="title">Add a title</div>
+		<div class="description">Please Add description for the photo</div>-->
 	</div>
-	<!--<button ng-click="addDetailsAboutPhoto();">Add Caption and Description</button>
-	<div class="title">Add a title</div>
-	<div class="description">Please Add description for the photo</div>-->
 </div>

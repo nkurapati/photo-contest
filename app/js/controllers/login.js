@@ -4,11 +4,18 @@ function loginController($scope, $timeout, authService) {
 	
 	//Google script taking time to load
 	$timeout(function() {
+		authService.isLoggedIn().then(function() {
+			gotoUploadPhoto();
+			return;
+		})
+	}, 1000)
+
+	/*$scope.checkForLogin = function() {
 		if(authService.isLoggedIn()) {
 			gotoUploadPhoto();
 			return;
 		}
-	}, 1000)
+	}*/
 	
 	$scope.login = function () {
 		authService.login().then(function(data) {
@@ -17,6 +24,8 @@ function loginController($scope, $timeout, authService) {
 			}
 		});
     };
+
+    //$scope.checkForLogin();
 }
 
 module.exports = loginController;

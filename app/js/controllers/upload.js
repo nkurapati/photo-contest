@@ -11,6 +11,12 @@ function uploadController($scope, restService, popupService, authService) {
 	
 	$scope.photos = [];
 
+	$scope.selectedPhotos = [];
+	$scope.uploadedPhotos = [];
+	$scope.uploadedPhotoCount = 0;
+	$scope.photosInUploadProcessLength = 0;
+	$scope.uploadNotInProgress = true;
+
 
 
 	$scope.getUserUploadedPhotos = function() {
@@ -20,21 +26,35 @@ function uploadController($scope, restService, popupService, authService) {
 
 	var onUserDetailsSuccess = function(data) {
 		for (var i = 0, len = data.data.length; i < len; i++) {
-			data.data[i].imgUrl = "http://contest.divami.com/uploads/" + data.data[i].filename;
-			$scope.photos.push(data.data[i]);
+			$scope.uploadedPhotos.push(data.data[i]);
+			//data.data[i].imgUrl = "http://contest.divami.com/uploads/" + data.data[i].filename;
+			//$scope.photos.push(data.data[i]);
 		}
+		$scope.uploadedPhotoCount = $scope.uploadedPhotos.length;
 	};
 
+	/**
+	 * this function delets all the photos of the given user.
+	*/ 
+	$scope.deleteAllPhotos = function() {
+		var data = {"email": userData.email};
+		restService.post('deleteAllPhotos', data).then(onAllPhotosDeleted);
+	}
+
+	var onAllPhotosDeleted = function(data) {
+		alert(data);
+	};
+
+	//$scope.deleteAllPhotos();
 	$scope.getUserUploadedPhotos();
-
-
 	
 	$scope.addAnotherFile = function() {
 		$scope.photos.push({});
 	}
 	
 	$scope.deleteFile = function(index) {
-		$scope.photos.splice(index, 1);
+		$scope.selectedPhotos.splice(index, 1);
+		//$scope.photos.splice(index, 1);
 	}
 
 	$scope.selectPhotosFromLocal = function() {
@@ -44,8 +64,21 @@ function uploadController($scope, restService, popupService, authService) {
 
 	$scope.onInputChange = function(elem) {
 		var filesLen = elem.files.length;
+		var remainingCount = 5;
 		$scope.$apply(function(scope) {
-			for (var i = 0; i < filesLen; i++) {
+			if ($scope.uploadedPhotoCount  == 0 && $scope.selectedPhotos.length == 0) { 
+				if (filesLen >  5) {
+					alert("Hello, you can upload only 5 files for the contest. so only first five selected files will be considered.")
+				} 
+			} else {
+				remainingCount = remainingCount - ($scope.uploadedPhotoCount  + $scope.selectedPhotos.length);
+
+				if (filesLen > remainingCount) {
+					alert("Hi, Already you have uploaded/selected "+ ($scope.uploadedPhotoCount + $scope.selectedPhotos.length) +" photos. You can upload only " + remainingCount + "photo(s)")
+				}
+			}
+
+			for (var i = 0; i < remainingCount; i++) {
 				var obj = {};
 				var file = elem.files[i];
 
@@ -55,7 +88,9 @@ function uploadController($scope, restService, popupService, authService) {
 				obj.title = "";
 				obj.description = "";
 				obj.showTitleOverlay = false;
-				$scope.photos.push(obj);
+				obj.uploadInProgress = false;
+				obj.uploadSuccess = false;
+				$scope.selectedPhotos.push(obj);
 			}
 		});
 		
@@ -85,7 +120,7 @@ function uploadController($scope, restService, popupService, authService) {
 	*/ 
 	$scope.showTitleOverlay = function(id) {
 		$scope.tooglePreviousElementOverlay();
-		$scope.photos[id].showTitleOverlay = true;
+		$scope.selectedPhotos[id].showTitleOverlay = true;
 		$scope.prevId = id;
 	}
 
@@ -93,24 +128,39 @@ function uploadController($scope, restService, popupService, authService) {
 	 * this function hides the overlay of the element based on the index.
 	*/ 
 	$scope.hideOverlay = function(index) {
-		$scope.photos[index].showTitleOverlay = false;
+		$scope.selectedPhotos[index].showTitleOverlay = false;
 	}
 
 	/**
 	 * this function checks if there is any overlay opened otherthan the current selected elememt and toogles it state.
 	*/ 
 	$scope.tooglePreviousElementOverlay = function() {
-		if ($scope.prevId != null && $scope.photos[$scope.prevId].showTitleOverlay) {
-			$scope.photos[$scope.prevId].showTitleOverlay = false;
+		if ($scope.prevId != null && $scope.selectedPhotos[$scope.prevId].showTitleOverlay) {
+			$scope.selectedPhotos[$scope.prevId].showTitleOverlay = false;
 		}
 	}
 
 	/**
 	 * this function removes the photo from the list
 	*/
-	$scope.removeThisPhoto = function(index) {
-		$scope.photos.splice(index, 1);
+	$scope.removeThisPhoto = function(index, photoId) {
+		$scope.selectedPhotos.splice(index, 1);
+		//$scope.deletePhoto(photoId);
 	} 
+
+	/**
+	 *
+	*/
+	$scope.deletePhoto = function (photoId, index) {
+		var data = {"_id": photoId};
+		$scope.uploadedPhotos.splice(index, 1);
+		$scope.uploadedPhotoCount = $scope.uploadedPhotos.length;
+		restService.post("deletePhoto", data).then(onPhotoDelete);
+	}
+
+	var onPhotoDelete = function (data) {
+		alert("Photo has been deleted successfully");
+	}
 
 	/**
 	 * this function uploads the photos to the server
@@ -119,9 +169,12 @@ function uploadController($scope, restService, popupService, authService) {
 		var isValid = $scope.validateInputFields();
 
 		if (isValid) {
-			for (var i = 0, len = $scope.photos.length; i < len; i++) {
+			$scope.photosInUploadProcessLength = $scope.selectedPhotos.length;
+			$scope.uploadNotInProgress = false;
+			for (var i = 0, len = $scope.selectedPhotos.length; i < len; i++) {
+				$scope.selectedPhotos[i].uploadInProgress = true;
 				var formData = new FormData();
-				var photo = $scope.photos[i];
+				var photo = $scope.selectedPhotos[i];
 
 				formData.append('email', userData.email);
 				formData.append('name', userData.name);
@@ -133,7 +186,7 @@ function uploadController($scope, restService, popupService, authService) {
 				restService.upload('upload', formData).then(onSuccess);
 			}
 		} else {
-			alert ("Please give title and description for the photos that are marked in red");
+			alert ("Please give title and description for all the selected photos");
 		}
 	}
 
@@ -141,8 +194,8 @@ function uploadController($scope, restService, popupService, authService) {
 	 * This function validates whether the description and title are applied for all the selected photos
 	*/
 	$scope.validateInputFields = function() {
-		for (var i = 0 , len = $scope.photos.length; i < len; i++) {
-			var photo = $scope.photos[i];
+		for (var i = 0 , len = $scope.selectedPhotos.length; i < len; i++) {
+			var photo = $scope.selectedPhotos[i];
 
 			if (photo.title == "" || photo.description == "") {
 				return false;
@@ -175,6 +228,23 @@ function uploadController($scope, restService, popupService, authService) {
 	}*/
 	
 	var onSuccess = function(data) {
+		if (data.status == 200) {
+			var result = data.data
+			for (var i = 0; i < $scope.selectedPhotos.length; i++) {
+				if (result.uniqueId == $scope.selectedPhotos[i].uniqueId) {
+					$scope.selectedPhotos[i].uploadInProgress = false;
+					$scope.selectedPhotos[i].uploadSuccess = true;
+					$scope.photosInUploadProcessLength = $scope.photosInUploadProcessLength - 1;
+					if ($scope.photosInUploadProcessLength == 0) {
+						//do page refresh;
+						//alert("All the photos has been uploaded successfully")
+						window.location.reload();
+					}
+					break;
+				}
+			}
+		}
+		//alert(data)
 		/*var callback = $scope.gotoSubmissions;
 		popupService.uploadSuccessPopup($scope, callback, callback);*/
 	}

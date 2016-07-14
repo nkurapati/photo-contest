@@ -7,6 +7,14 @@ app.get("/", function(req, res) {
 	res.send("Server Running...");
 });
 
+app.get("/getItems", function(req, res) {
+	var obj = {
+		name: "Venkat",
+		age: 27
+	};
+	res.send(obj);
+});
+
 app.listen(8081, function() {
 	console.log("Server Started");
 })

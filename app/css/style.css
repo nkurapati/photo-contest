@@ -4,12 +4,13 @@ body {
 	width: 100%;
 	font-family: arial, sans-serif;
 	letter-spacing: 1px;
+	color: #fff;
 }
 
 button {
 	height: 50px;
 	background-color: #991a1f;
-	color: #fff;
+	color: #fff !important;
 	padding:0px 30px;
 	border: none;
     font-size: 16px;
@@ -29,9 +30,10 @@ input, textarea {
 	border: 1px solid #cfcfcf;
 	display: inline-block;
 	width: 100%;
-	margin-bottom: 10px;
+	margin-bottom: 10px !important;
 	padding: 10px;
 	background: none;
+	letter-spacing: 1px;
 }
 
 input {
@@ -54,6 +56,13 @@ footer {
     display: none;
 }
 
+label {
+	display: block !important;
+}
+
+.sec_heading_label {
+	color: #cc6666 !important;
+}
 
 .content_view {
 	padding: 40px;
@@ -126,10 +135,11 @@ footer {
 .photo_details_section {
 	height: 100px;
 	background:#cc6666;
-	color: #fff;
+	color: #fff !important;
 	border-radius: 0px 0px 5px 5px;
 	padding: 10px;
 	box-sizing:border-box;
+	width: 300px;
 }
 
 .no_details {
@@ -159,11 +169,14 @@ footer {
 	height: 300px;
 	width: 300px;
 	border: 2px solid #cc6666;
-	border-bottom: none;
 	box-sizing:border-box;
-	background-size: contain;
+	background-size: cover;
     background-repeat: no-repeat;
     background-position: center center
+}
+
+.user_photo_holder {
+	border-bottom: none;
 }
 
 .photo_holder_modal {
@@ -177,28 +190,30 @@ footer {
 .title_description_overlay {
 	position: absolute;
     z-index: 14;
-    height: 100%;
-    width: 100%;
+    height: 400px;
+    width: 300px;
     background-color: #fff;
     padding: 10px;
     box-sizing: border-box;
     border: 2px solid #cc6666;
+    text-align: center;
+    top:0px;
     /*display: none;*/
 }
-
 .title {
 	font-size: 16px;
 }
 
 .description {
 	font-size: 12px;
+	text-transform: lowercase;
 }
 
 .upload_photos_btn {
-	position: fixed;
-	bottom: 0px;
-	left: 0px;
-	width: 100%;
+	width: 300px;
+	display:block;
+	margin: 50px auto;
+	letter-spacing: 2px;
 }
 
 .delete_photo_option {
@@ -216,8 +231,20 @@ footer {
 	display: block;
 }
 
+.title_description_overlay:hover .delete_photo_option {
+	display: none;
+}
+
+.photos-wrap {
+	position: relative;
+}
+
 .rotate45, .rotate135 {
 	/*height: 20px;*/
+}
+
+.no_details a {
+	color: #fff!important;
 }
 
 .rotate45 {
@@ -233,4 +260,81 @@ footer {
 
 .carousel-indicators {
 	display: none !important;
+}
+
+.uploaded_user_details .title{
+	float: left;
+}
+
+.uploaded_user_details .photo_count {
+	float: right;
+}
+
+.photo_details_section_admin {
+	height: 40px;
+}
+
+.carousel-control.right, .carousel-control.left {
+	background: none!important;
+	
+}
+
+.loader {
+	background: rgba(0,0,0,0.6);
+	position: absolute;
+    z-index: 14;
+    height: 400px;
+    width: 300px;
+    top:0px;
+}
+
+.loader img {
+	vertical-align: middle;
+    height: 100px;
+    width: 100px;
+    top: 28%;
+    position: relative;
+    margin: 0px auto;
+    display: block;
+}
+
+.uploadSuccess {
+	background: transparent;
+	position: absolute;
+    z-index: 14;
+    height: 100%;
+    width: 100%;
+    top:0px;
+}
+
+.uploadSuccess img {
+	vertical-align: middle;
+    height: 100px;
+    width: 100px;
+    top: 28%;
+    position: relative;
+    margin: 0px auto;
+    display: block;
+}
+
+/*.carousel-control.left .glyphicon-chevron-left{
+	background-image: url("../images/left-01.svg")!important;
+	width: 50px;
+	height: 50px;
+	display: inline-block !important;
+}
+
+.carousel-control.right .glyphicon-chevron-right{
+	background-image: url("../images/right-01.svg")!important;
+	width: 50px;
+	height: 50px;
+	display: inline-block !important;
+}*/
+
+.imageHolder .photo_details_section {
+	width: 100% !important;
+}
+
+.title_description {
+	text-align: left !important;
 }

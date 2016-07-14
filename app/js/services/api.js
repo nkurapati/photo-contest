@@ -6,7 +6,9 @@ function apiService() {
 	var serverApiPaths = {
         login: "login",
 		getSubmissions: "submissions",
-		upload: "upload"
+		upload: "upload", 
+		deleteAllPhotos: "delete",
+		deletePhoto: "delete"
 	};
 	
 	/**
