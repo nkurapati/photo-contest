@@ -206,7 +206,7 @@ label {
 
 .description {
 	font-size: 12px;
-	text-transform: lowercase;
+	x-text-transform: lowercase;
 }
 
 .upload_photos_btn {
