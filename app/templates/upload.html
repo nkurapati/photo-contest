@@ -1,23 +1,20 @@
 
 <div class="addPhotosArea" style="width:100%;">
-	<div style="text-align:center;margin-bottom:20px;cursor:pointer;color:#cc6666" ng-if="(selectedPhotos.length + uploadedPhotoCount) >= 1 &&  (selectedPhotos.length + uploadedPhotoCount < 5) "  ng-click="selectPhotosFromLocal();">
+	<!--<div style="text-align:center;margin-bottom:20px;cursor:pointer;color:#cc6666" ng-if="(selectedPhotos.length + uploadedPhotoCount) >= 1 &&  (selectedPhotos.length + uploadedPhotoCount < 5) "  ng-click="selectPhotosFromLocal();">
 		<svg style="vertical-align:middle; margin-right:5px;"  width="24px" height="24px" class="JUQOtc" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"></path></svg>
 		<label style="vertical-align:middle;font-size:16px;font-family:sans-serif;cursor:pointer;display:inline-block!important">Select more photos</label>
-	</div>
-	<div class="in_progress_section"></div>
-	<div class="uploaded_photos_section"></div>
+	</div>-->
 	<div style="position:relative;width:100%">
 		<!-- hidden input field element -->
 		<div class="hidden_input_field" style="position:absolute; visibility:hidden; top:-1000px; left:-1000px; z-index:14">
 			<input type="file" id="file_upload_field" onChange="angular.element(this).scope().onInputChange(this);" accept="image/*" multiple/>
 		</div>
 		<!-- drop area for the photos -->
-		<div class="photos_drop_area" style="width:100%;text-align:center" >
+		<!--<div class="photos_drop_area" style="width:100%;text-align:center" >
 			<div ng-show="uploadedPhotoCount == 0 && selectedPhotos.length == 0">
 				<p> Hi, No photos has uploaded yet for the contest. Please <a ng-click="selectPhotosFromLocal();" style="cursor:pointer">select</a> the photos and upload. </p>
-				<!--<button ng-click="selectPhotosFromLocal();">Select Photos</button>-->
 			</div>
-		</div>
+		</div>-->
 		<div class="selected_photos" ng-if="selectedPhotos.length">
 			<label class="sec_heading_label">Selected Photos</label>
 			<div class="photos-wrap" style="float:left; cursor:pointer" ng-repeat="photo in selectedPhotos">
@@ -58,9 +55,9 @@
 		</div>
 		<!-- place where selected photos will be shown -->
 		<div class="uploaded_photos" ng-if="uploadedPhotos.length">
-			<label class="sec_heading_label">Submitted Photos</label>
+			<label class="sec_heading_label">Your Photos ({{uploadedPhotos.length}})</label>
 			<div class="photos" style="float:left; cursor:pointer" ng-repeat="photo in uploadedPhotos">
-				<div class="delete_photo_option" ng-click="deletePhoto(photo._id, $index);">
+				<!--<div class="delete_photo_option" ng-click="deletePhoto(photo._id, $index);">
 					<div class="rotate45"></div>
 					<div class="rotate135"></div>
 				</div>
@@ -68,8 +65,7 @@
 					<input type="text" ng-model="photo.title" placeholder="Please enter the title for the photo"/>
 					<textarea ng-model="photo.description" placeholder="Please enter the description of the photo"></textarea>
 					<button ng-click="hideOverlay($index)">Done</button>
-					<!--<button ng-click="hideOverlay($index)">Cancel</button>-->
-				</div>
+				</div>-->
 				<div class="photo_holder user_photo_holder" style="background-image:url('http://contest.divami.com/uploads/{{photo.filename}}');"></div>
 				<div class="photo_details_section">
 					<div class="no_details" ng-if="photo.title == ''">
@@ -85,7 +81,35 @@
 				<div class="description">Please Add description for the photo</div>-->
 			</div>
 		</div>
-		<!-- start of the upload photos button -->
-		<!-- end of the upload photos button -->
+		<!-- start of all user photos section -->
+		<div class="all_user_photos">
+			<label class="sec_heading_label">Other's Submitted  Photos ({{allUploadedPhotos.length}})</label>
+			<div class="photos" style="float:left; cursor:pointer" ng-repeat="photo in allUploadedPhotos" ng-click="open('lg', $index)">
+				<!--<div class="delete_photo_option" ng-click="deletePhoto(photo._id, $index);">
+					<div class="rotate45"></div>
+					<div class="rotate135"></div>
+				</div>
+				<div class="title_description_overlay" ng-show="photo.showTitleOverlay">
+					<input type="text" ng-model="photo.title" placeholder="Please enter the title for the photo"/>
+					<textarea ng-model="photo.description" placeholder="Please enter the description of the photo"></textarea>
+					<button ng-click="hideOverlay($index)">Done</button>
+				</div>-->
+				<div class="photo_holder user_photo_holder" style="background-image:url('http://contest.divami.com/uploads/{{photo.filename}}');"></div>
+				<div class="photo_details_section">
+					<div class="no_details" ng-if="photo.title == ''">
+						<a style="cursor:pointer" ng-click="showTitleOverlay($index);">Please add title and description</a>
+					</div>
+					<div class="title_description" ng-if="photo.title != '' && photo.description != '' ">
+						<label class="title">{{photo.title}}</label>
+						<p class="description">{{photo.description}}</p>
+					</div>
+				</div>
+				<!--<button ng-click="addDetailsAboutPhoto();">Add Caption and Description</button>
+				<div class="title">Add a title</div>
+				<div class="description">Please Add description for the photo</div>-->
+			</div>
+
+		</div>
+		<!-- end of all user photos section -->
 	</div>
 </div>

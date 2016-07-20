@@ -1,4 +1,4 @@
-function uploadController($scope, restService, popupService, authService) {
+function uploadController($scope, restService, popupService, authService, $uibModal) {
 	
 	var userData = authService.getUserData();
 	if(!userData) {
@@ -16,6 +16,7 @@ function uploadController($scope, restService, popupService, authService) {
 	$scope.uploadedPhotoCount = 0;
 	$scope.photosInUploadProcessLength = 0;
 	$scope.uploadNotInProgress = true;
+	$scope.allUploadedPhotos = [];
 
 
 
@@ -45,8 +46,25 @@ function uploadController($scope, restService, popupService, authService) {
 		alert(data);
 	};
 
+	$scope.getAllSubmittedPhotos = function() {
+		restService.get('getSubmissions').then(onAllSubmittedPhotos);
+	}
+
+	var onAllSubmittedPhotos = function(data) {
+		for (var i = 0; i < data.data.length; i++) {
+			var photo = data.data[i];
+
+			if (photo.email != userData.email) {
+				$scope.allUploadedPhotos.push(photo);
+			}
+
+			console.log(photo);
+		}
+	}
+
 	//$scope.deleteAllPhotos();
 	$scope.getUserUploadedPhotos();
+	$scope.getAllSubmittedPhotos();
 	
 	$scope.addAnotherFile = function() {
 		$scope.photos.push({});
@@ -247,6 +265,31 @@ function uploadController($scope, restService, popupService, authService) {
 		//alert(data)
 		/*var callback = $scope.gotoSubmissions;
 		popupService.uploadSuccessPopup($scope, callback, callback);*/
+	}
+
+	$scope.open = function (size, selItemIndex) {
+		for (var i = 0; i < $scope.allUploadedPhotos.length; i++) {
+			$scope.allUploadedPhotos[i].imgUrl = "http://contest.divami.com/uploads/" + $scope.allUploadedPhotos[i].filename;
+		}
+		var modalInstance = $uibModal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: '../templates/photo-item.html',
+			controller: 'photoLargeController',
+			size: size,
+			resolve: {
+				items: function () {
+					var obj = {};
+					obj.photos = $scope.allUploadedPhotos;
+					obj.selectedItemIndex = selItemIndex;
+				  	return obj;
+				}
+			}
+		});
+
+		modalInstance.result.then(function (selectedItem) {
+			$scope.selected = selectedItem;
+			}, function () {
+		});
 	}
 }
 
