@@ -31,12 +31,8 @@
     "gulp": "^3.9.1",
     "gulp-live-server": "0.0.30",
     "gulp-shell": "^0.5.2",
-    "mongoose": "^4.5.0",
     "multer": "^1.1.0",
     "q": "^1.4.1",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "dependencies": {
-    "mongoose": "^4.5.1"
   }
 }
